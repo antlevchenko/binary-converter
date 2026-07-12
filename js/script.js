@@ -1,6 +1,6 @@
 'use strict';
 
-import { translations, checkLanguage, getTranslation, translatePage, translatePlaceholders } from "./language.js";
+import { checkLanguage, translatePage, translatePlaceholders } from "./language.js";
 import { toggleDarkMode } from "./theme.js";
 
 const body = document.body;
@@ -20,9 +20,13 @@ const textareaBinaryEl = document.querySelector('[data-js-textarea-binary]');
 const reverseBtnEl = document.querySelector('[data-js-reverse-btn]');
 const conversionBtnEl = document.querySelector('[data-js-conversion-btn]');
 
-let beforeBinaryContainer = false;
+const errorMessage = document.querySelector('[data-js-error-msg]');
+
+let isReverseMode = false;
 
 let currentLanguage = localStorage.getItem('language') || 'ru';
+
+let binaryRegex = /^[01\s]+$/;
 
 if (currentLanguage === 'en') {
     enBtnEl.classList.add('border-2');
@@ -39,7 +43,7 @@ translatePage(
 
 translatePlaceholders(
     currentLanguage,
-    beforeBinaryContainer,
+    isReverseMode,
     textareaTextEl,
     textareaBinaryEl
 );
@@ -53,6 +57,8 @@ if (localStorage.getItem('theme') === 'dark') {
 }
 
 function toBinaryCode() {
+    if (textareaTextEl.value === '') return;
+
     const text = textareaTextEl.value;
 
     const encoder = new TextEncoder();
@@ -68,6 +74,10 @@ function toBinaryCode() {
 function fromBinaryCode() {
     const binaryCode = textareaBinaryEl.value.trim();
 
+    if (binaryCode === '') return;
+
+    if (!binaryRegex.test(textareaBinaryEl.value)) return;
+
     const byteStrings = binaryCode.trim().split(/\s+/);
     const bytes = byteStrings.map(b => parseInt(b, 2));
 
@@ -78,24 +88,73 @@ function fromBinaryCode() {
 }
 
 function textareaReverse() {
-    if (beforeBinaryContainer) {
+    if (isReverseMode) {
         containerBinaryEl.before(containerTextEl);
+
+        textareaTextEl.value = '';
+        textareaBinaryEl.value = '';
+
+        errorMessage.classList.add('hidden');
     } else {
         containerBinaryEl.after(containerTextEl);
+
+        textareaTextEl.value = '';
+        textareaBinaryEl.value = '';
+
     }
 
-    beforeBinaryContainer = !beforeBinaryContainer;
+    isReverseMode = !isReverseMode;
 
     translatePlaceholders(
         currentLanguage, 
-        beforeBinaryContainer, 
+        isReverseMode, 
         textareaTextEl, 
         textareaBinaryEl
     )
 }
 
+function textareaValidate() {
+    if (isReverseMode) {
+        const binaryValue = textareaBinaryEl.value.trim();
+
+        if (binaryValue === '') {
+            errorMessage.classList.add('hidden');
+            textareaBinaryEl.classList.remove('focus:border-red-600', 'border-red-500');
+
+            return;
+        } 
+
+        if (!binaryRegex.test(textareaBinaryEl.value)) {
+            errorMessage.classList.remove('hidden');
+            textareaBinaryEl.classList.add(
+                'border-red-500', 
+                'focus:outline-none', 
+                'focus:border-red-600', 
+                'transition-colors',
+            );
+        } else {
+            errorMessage.classList.add('hidden');
+            textareaBinaryEl.classList.remove('focus:border-red-600', 'border-red-500');
+            textareaBinaryEl.classList.add(
+                'focus:outline-none',
+                'focus:border-[#FF8C00]',
+                'transition-colors'
+            );
+        }
+    } else {
+        errorMessage.classList.add('hidden');
+        textareaBinaryEl.classList.remove('focus:border-red-600', 'border-red-500');
+        textareaBinaryEl.classList.add(
+            'focus:outline-none',
+            'focus:border-[#FF8C00]',
+            'transition-colors'
+        );
+    }
+}
+
+
 function textareaConverse() {
-    if (!beforeBinaryContainer) {
+    if (!isReverseMode) {
         toBinaryCode();
     } else {
         fromBinaryCode();
@@ -117,7 +176,7 @@ function changeLanguage(event) {
 
     translatePlaceholders(
         currentLanguage, 
-        beforeBinaryContainer, 
+        isReverseMode, 
         textareaTextEl, 
         textareaBinaryEl
     );
@@ -125,8 +184,13 @@ function changeLanguage(event) {
     localStorage.setItem('language', currentLanguage);
 }
 
-reverseBtnEl.addEventListener('click', textareaReverse);
-conversionBtnEl.addEventListener('click', textareaConverse);
+textareaValidate();
+reverseBtnEl.addEventListener('click', () => {
+    textareaReverse(), textareaValidate();
+});
+conversionBtnEl.addEventListener('click', () => {
+    textareaConverse(), textareaValidate();
+});
 themeButtonEl.addEventListener('click', () => {
     toggleDarkMode(body);
 });

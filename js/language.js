@@ -100,8 +100,8 @@ function translatePage(translatableElements, currentLanguage) {
     });
 }
 
-function translatePlaceholders(currentLanguage, beforeBinaryContainer, textareaTextEl, textareaBinaryEl) {
-    if (!beforeBinaryContainer) {
+function translatePlaceholders(currentLanguage, isReverseMode, textareaTextEl, textareaBinaryEl) {
+    if (!isReverseMode) {
         textareaTextEl.placeholder = translations[currentLanguage].inputs.direct.input;
 
         textareaBinaryEl.placeholder = translations[currentLanguage].inputs.direct.output;

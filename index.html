@@ -10,7 +10,9 @@
 <body class="font-[Geologica] dark:bg-[#1e1e1e] dark:text-[#e0e0e0]">
     <header>
         <div class="flex justify-between items-center w-full h-20 dark:bg-[#696969] px-4">
-            <h1 class="text-[#FF8C00] text-2xl font-bold">Binary Converter</h1>
+            <a href="/">
+                <h1 class="text-[#FF8C00] text-2xl font-bold">Binary Converter</h1>
+            </a>
             <div class="flex items-center gap-4">
                 <div class="flex">
                     <button class="text-lg text-[#FF8C00] font-bold cursor-pointer border-2 border-[#FF8C00] rounded px-1" data-js-language data-js-ru-language>RU</button>
@@ -24,33 +26,37 @@
     
     <main>
         <div class="flex justify-center items-center mt-5">
-            <button class="relative z-10 flex justify-center items-center w-10 h-10 rounded-lg bg-[#FF8C00] hover:bg-[#FFA500] shadow-[0_10px_25px_rgba(0,0,0,0.25)] hover:shadow-[0_15px_35px_rgba(0,0,0,0.35)] transition-all duration-300 active:scale-90 active:duration-75 cursor-pointer" type="button" data-js-reverse-btn>
+            <button class="relative z-10 flex justify-center items-center w-10 h-10 rounded-lg bg-[#FF8C00] hover:bg-[#FFA500] shadow-[0_10px_25px_rgba(0,0,0,0.25)] hover:shadow-[0_15px_35px_rgba(0,0,0,0.35)] dark:shadow-none dark:hover:shadow-none transition-all duration-300 active:scale-90 active:duration-75 cursor-pointer" type="button" data-js-reverse-btn>
                 <i class="bx bx-refresh-ccw-alt text-white text-2xl"></i>
             </button>
         </div>
 
         <div class="flex justify-center items-center mt-6" data-js-container-text>
-            <textarea class="w-80 border-2 border-gray-400 dark:border-[#e0e0e0] rounded-lg resize-none p-2 md:w-170 md:h-50" 
+            <textarea class="w-80 border-2 border-gray-400 dark:border-[#e0e0e0] placeholder-[#757575] dark:placeholder-[#A9A9A9] rounded-lg resize-none p-2 focus:outline-none focus:border-[#FF8C00] transition-colors md:w-170 md:h-50" 
             rows="4" 
             placeholder="Введите текст..."
-            name="text"
-            id="text"
+            name="binary"
+            id="binary"
             data-js-textarea-text
             ></textarea>
         </div>
 
-        <div class="flex justify-center items-center mt-6" data-js-container-binary>
-            <textarea class="w-80 border-2 border-gray-400 dark:border-[#e0e0e0] rounded-lg resize-none p-2 md:w-170 md:h-50" 
+        <div class="flex flex-col justify-center items-center mt-6" data-js-container-binary>
+            <textarea class="w-80 border-2 border-gray-400 dark:border-[#e0e0e0] placeholder-[#757575] dark:placeholder-[#A9A9A9] rounded-lg resize-none p-2 focus:outline-none focus:border-[#FF8C00] transition-colors md:w-170 md:h-50" 
             rows="4" 
             placeholder="Результат в двоичном коде"
             name="text"
             id="text"
             data-js-textarea-binary
             ></textarea>
+
+            <p class="hidden text-red-600 dark:text-red-400 text-sm font-medium" data-js-error-msg>
+                Допустимы только символы 0, 1 и пробелы.
+            </p>
         </div>
 
         <div class="flex justify-center items-center my-5">
-            <button class="relative z-10 flex justify-center items-center w-40 h-10 rounded-lg bg-[#FF8C00] hover:bg-[#FFA500] shadow-[0_10px_25px_rgba(0,0,0,0.25)] hover:shadow-[0_15px_35px_rgba(0,0,0,0.35)] transition-all duration-300 active:scale-90 active:duration-75 cursor-pointer" type="button" data-js-conversion-btn>
+            <button class="relative z-10 flex justify-center items-center w-40 h-10 rounded-lg bg-[#FF8C00] hover:bg-[#FFA500] shadow-[0_10px_25px_rgba(0,0,0,0.25)] hover:shadow-[0_15px_35px_rgba(0,0,0,0.35)] dark:shadow-none dark:hover:shadow-none transition-all duration-300 active:scale-90 active:duration-75 cursor-pointer" type="button" data-js-conversion-btn>
                 <p class="text-white" data-i18n="conversionBtn">Конвертировать</p>
             </button>
         </div>
@@ -91,7 +97,7 @@
 
     <footer>
         <div class="flex flex-col justify-center items-center w-full h-30 dark:bg-[#696969]">
-            <a href="#">
+            <a href="https://github.com/antlevchenko/binary-converter" target="_blank">
                 <img src="./icons/github.svg" alt="GitHub Repository" width="40" height="40" class="dark:invert">
             </a>
 
