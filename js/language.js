@@ -5,6 +5,8 @@ export { translations, checkLanguage, getTranslation, translatePage, translatePl
 let translations = {
     ru: {
         conversionBtn: "Конвертировать",
+        copyBtn: "Скопировать результат",
+        clearBtn: "Очистить",
 
         inputs: {
             direct: {
@@ -15,6 +17,12 @@ let translations = {
                 input: "Введите двоичный код...",
                 output: "Текстовый результат"
             }
+        },
+
+        messages: {
+            copyTextMsg: "Скопировано!",
+            copyBinaryMsg: "Скопировано!",
+            errorMsg: "Допустимы только символы 0, 1 и пробелы."
         },
 
         info: {
@@ -37,6 +45,8 @@ let translations = {
 
     en: {
         conversionBtn: "Convert",
+        copyBtn: "Copy the result",
+        clearBtn: "Clear",
 
         inputs: {
             direct: {
@@ -47,6 +57,12 @@ let translations = {
                 input: "Enter binary code...",
                 output: "Text result"
             }
+        },
+
+        messages: {
+            copyTextMsg: "Copied!",
+            copyBinaryMsg: "Copied!",
+            errorMsg: "Only characters 0, 1 and spaces are allowed."
         },
 
         info: {

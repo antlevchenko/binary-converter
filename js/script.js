@@ -19,8 +19,12 @@ const textareaBinaryEl = document.querySelector('[data-js-textarea-binary]');
 
 const reverseBtnEl = document.querySelector('[data-js-reverse-btn]');
 const conversionBtnEl = document.querySelector('[data-js-conversion-btn]');
+const copyBtnEl = document.querySelector('[data-js-copy-btn]');
+const clearBtnEl = document.querySelector('[data-js-clear-btn]');
 
 const errorMessage = document.querySelector('[data-js-error-msg]');
+const copyTextMessage = document.querySelector('[data-js-copy-text]');
+const copyBinaryMessage = document.querySelector('[data-js-copy-binary]');
 
 let isReverseMode = false;
 
@@ -36,17 +40,28 @@ if (currentLanguage === 'en') {
     enBtnEl.classList.remove('border-2');
 }
 
-translatePage(
-    translatableElements,
-    currentLanguage
-);
+function changeLanguage(event) {
+    currentLanguage = checkLanguage(
+        event,
+        enBtnEl,
+        ruBtnEl,
+        currentLanguage
+    );
 
-translatePlaceholders(
-    currentLanguage,
-    isReverseMode,
-    textareaTextEl,
-    textareaBinaryEl
-);
+    translatePage(
+        translatableElements, 
+        currentLanguage,
+    );
+
+    translatePlaceholders(
+        currentLanguage, 
+        isReverseMode, 
+        textareaTextEl, 
+        textareaBinaryEl
+    );
+
+    localStorage.setItem('language', currentLanguage);
+}
 
 body.classList.remove('dark');
 
@@ -113,6 +128,43 @@ function textareaReverse() {
     )
 }
 
+function textareaConverse() {
+    if (!isReverseMode) {
+        toBinaryCode();
+    } else {
+        fromBinaryCode();
+    }
+}
+
+function copyToClipboard() {
+    if (isReverseMode) {
+        navigator
+            .clipboard
+            .writeText(textareaTextEl.value);
+        
+        copyTextMessage.classList.remove('hidden');
+
+        setTimeout(() => {
+            copyTextMessage.classList.add('hidden');
+        }, 2000);
+    } else {
+        navigator
+            .clipboard
+            .writeText(textareaBinaryEl.value);
+        
+        copyBinaryMessage.classList.remove('hidden');
+
+        setTimeout(() => {
+            copyBinaryMessage.classList.add('hidden');
+        }, 2000);
+    }
+}
+
+function clearData() {
+    textareaTextEl.value = '';
+    textareaBinaryEl.value = '';
+}
+
 function textareaValidate() {
     if (isReverseMode) {
         const binaryValue = textareaBinaryEl.value.trim();
@@ -152,45 +204,29 @@ function textareaValidate() {
     }
 }
 
+translatePage(
+    translatableElements,
+    currentLanguage
+);
 
-function textareaConverse() {
-    if (!isReverseMode) {
-        toBinaryCode();
-    } else {
-        fromBinaryCode();
-    }
-}
-
-function changeLanguage(event) {
-    currentLanguage = checkLanguage(
-        event,
-        enBtnEl,
-        ruBtnEl,
-        currentLanguage
-    );
-
-    translatePage(
-        translatableElements, 
-        currentLanguage,
-    );
-
-    translatePlaceholders(
-        currentLanguage, 
-        isReverseMode, 
-        textareaTextEl, 
-        textareaBinaryEl
-    );
-
-    localStorage.setItem('language', currentLanguage);
-}
+translatePlaceholders(
+    currentLanguage,
+    isReverseMode,
+    textareaTextEl,
+    textareaBinaryEl
+);
 
 textareaValidate();
 reverseBtnEl.addEventListener('click', () => {
-    textareaReverse(), textareaValidate();
+    textareaReverse();
+    textareaValidate();
 });
 conversionBtnEl.addEventListener('click', () => {
-    textareaConverse(), textareaValidate();
+    textareaConverse();
+    textareaValidate();
 });
+clearBtnEl.addEventListener('click', clearData);
+copyBtnEl.addEventListener('click', copyToClipboard);
 themeButtonEl.addEventListener('click', () => {
     toggleDarkMode(body);
 });

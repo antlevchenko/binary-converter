@@ -2,3 +2,13 @@
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@layer components {
+    .btn {
+        @apply relative z-10 flex justify-center items-center w-50 h-10 rounded-lg bg-[#FF8C00] hover:bg-[#FFA500] shadow-[0_10px_25px_rgba(0,0,0,0.25)] hover:shadow-[0_15px_35px_rgba(0,0,0,0.35)] dark:shadow-none dark:hover:shadow-none transition-all duration-300 active:scale-90 active:duration-75 mt-5 cursor-pointer
+    }
+
+    .btn-reverse {
+        @apply relative z-10 flex justify-center items-center w-10 h-10 rounded-lg bg-[#FF8C00] hover:bg-[#FFA500] shadow-[0_10px_25px_rgba(0,0,0,0.25)] hover:shadow-[0_15px_35px_rgba(0,0,0,0.35)] dark:shadow-none dark:hover:shadow-none transition-all duration-300 active:scale-90 active:duration-75 cursor-pointer
+    }
+}

@@ -26,12 +26,17 @@
     
     <main>
         <div class="flex justify-center items-center mt-5">
-            <button class="relative z-10 flex justify-center items-center w-10 h-10 rounded-lg bg-[#FF8C00] hover:bg-[#FFA500] shadow-[0_10px_25px_rgba(0,0,0,0.25)] hover:shadow-[0_15px_35px_rgba(0,0,0,0.35)] dark:shadow-none dark:hover:shadow-none transition-all duration-300 active:scale-90 active:duration-75 cursor-pointer" type="button" data-js-reverse-btn>
+            <button class="btn-reverse" type="button" data-js-reverse-btn>
                 <i class="bx bx-refresh-ccw-alt text-white text-2xl"></i>
             </button>
         </div>
 
-        <div class="flex justify-center items-center mt-6" data-js-container-text>
+        <div class="flex flex-col justify-center items-center mt-6" data-js-container-text>
+            <div class="w-80 text-left md:w-170">
+                <p class="hidden text-[#FF8C00] text-sm font-bold" data-js-copy-text data-i18n="messages.copyTextMsg">
+                    Скопировано!
+                </p>
+            </div>
             <textarea class="w-80 border-2 border-gray-400 dark:border-[#e0e0e0] placeholder-[#757575] dark:placeholder-[#A9A9A9] rounded-lg resize-none p-2 focus:outline-none focus:border-[#FF8C00] transition-colors md:w-170 md:h-50" 
             rows="4" 
             placeholder="Введите текст..."
@@ -42,6 +47,11 @@
         </div>
 
         <div class="flex flex-col justify-center items-center mt-6" data-js-container-binary>
+            <div class="w-80 text-left md:w-170">
+                <p class="hidden text-[#FF8C00] text-sm font-bold" data-js-copy-binary data-i18n="messages.copyBinaryMsg">
+                    Скопировано!
+                </p>
+            </div>
             <textarea class="w-80 border-2 border-gray-400 dark:border-[#e0e0e0] placeholder-[#757575] dark:placeholder-[#A9A9A9] rounded-lg resize-none p-2 focus:outline-none focus:border-[#FF8C00] transition-colors md:w-170 md:h-50" 
             rows="4" 
             placeholder="Результат в двоичном коде"
@@ -50,20 +60,26 @@
             data-js-textarea-binary
             ></textarea>
 
-            <p class="hidden text-red-600 dark:text-red-400 text-sm font-medium" data-js-error-msg>
+            <p class="hidden text-red-600 dark:text-red-400 text-sm font-medium" data-js-error-msg data-i18n="messages.errorMsg">
                 Допустимы только символы 0, 1 и пробелы.
             </p>
         </div>
 
-        <div class="flex justify-center items-center my-5">
-            <button class="relative z-10 flex justify-center items-center w-40 h-10 rounded-lg bg-[#FF8C00] hover:bg-[#FFA500] shadow-[0_10px_25px_rgba(0,0,0,0.25)] hover:shadow-[0_15px_35px_rgba(0,0,0,0.35)] dark:shadow-none dark:hover:shadow-none transition-all duration-300 active:scale-90 active:duration-75 cursor-pointer" type="button" data-js-conversion-btn>
+        <div class="flex flex-col justify-center items-center my-3 md:flex-row md:gap-10">
+            <button class="btn" type="button" data-js-conversion-btn>
                 <p class="text-white" data-i18n="conversionBtn">Конвертировать</p>
+            </button>
+            <button class="btn" type="button" data-js-copy-btn>
+                <p class="text-white" data-i18n="copyBtn">Скопировать результат</p>
+            </button>
+            <button class="btn" type="button" data-js-clear-btn>
+                <p class="text-white" data-js-clear-btn data-i18n="clearBtn">Очистить</p>
             </button>
         </div>
 
         <section class="flex flex-col justify-center items-center">
             <div class="w-full my-3 px-4 xl:w-300">
-                <h2 class="text-center text-2xl dark:text-[#e0e0e0] mb-4" data-i18n="info.whatIs.title">
+                <h2 class="text-center text-2xl dark:text-[#e0e0e0] my-4" data-i18n="info.whatIs.title">
                     Что такое бинарный код?
                 </h2>
                 <p class="text-left" data-i18n="info.whatIs.description">
