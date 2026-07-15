@@ -178,16 +178,19 @@ function textareaValidate() {
 
         if (!binaryRegex.test(textareaBinaryEl.value)) {
             errorMessage.classList.remove('hidden');
+            textareaBinaryEl.classList.remove('dark:border-[#e0e0e0]');
             textareaBinaryEl.classList.add(
-                'border-red-500', 
+                'border-red-500',
+                'dark:border-red-500',
                 'focus:outline-none', 
                 'focus:border-red-600', 
                 'transition-colors',
             );
         } else {
             errorMessage.classList.add('hidden');
-            textareaBinaryEl.classList.remove('focus:border-red-600', 'border-red-500');
+            textareaBinaryEl.classList.remove('focus:border-red-600', 'border-red-500', 'dark:border-red-500');
             textareaBinaryEl.classList.add(
+                'dark:border-[#e0e0e0]',
                 'focus:outline-none',
                 'focus:border-[#FF8C00]',
                 'transition-colors'
