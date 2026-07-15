@@ -11,6 +11,6 @@ function toggleDarkMode(body) {
     if (currentTheme) {
         localStorage.setItem('theme', 'dark');
     } else {
-        localStorage.setItem('theme', 'light')
+        localStorage.setItem('theme', 'light');
     }
 }
