@@ -37,7 +37,7 @@ Then open the index.html file in your browser (manually or via Live Server).
 
 ### Project Website
 
-[Netlify](binary-converter-app.netlify.app)
+[Netlify](https://binary-converter-app.netlify.app)
 
 ### [RU]
 
@@ -76,4 +76,4 @@ npm run tailwind-watch
 
 ### Сайт проекта
 
-[Netlify](binary-converter-app.netlify.app)
+[Netlify](https://binary-converter-app.netlify.app)
